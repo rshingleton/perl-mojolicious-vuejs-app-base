@@ -5,6 +5,7 @@ This template should help get you started developing with Vue 3 in Vite with Moj
 This project uses [a small Perl base image](https://github.com/rshingleton/alpine-perl-docker) that is around 65Mb with a multi-stage build that results in a final image
 of around 67Mb. Your resulting image sizes may vary based on what dependencies you add to the mix.
 
+
 ### Perl Dependencies
 To add additional Perl dependencies, use the 
 [cpanfile](https://metacpan.org/dist/Module-CPANfile/view/lib/cpanfile.pod). Initially the project only has a single
@@ -16,7 +17,7 @@ cpanfile
 requires 'Mojolicious';
 ```
 
-### Mojolicious
+### [Mojolicious](https://mojolicious.org/)
 To handle the static assets that Vue produces, I added a route controller that serves the index.html
 that is produced after running npm run build. In the docker build process, the dist folder is copied 
 to /app/public. Requests coming into the base url / are routed to the controller MojoVue::Vue::index
@@ -35,8 +36,10 @@ sub index($self) {
 }
 ```
 
-### Handling vue routes
-To handle vue routes using vue-router, we need to add a "catch-all" Mojolicious route handler. The last route in MojoVue.pm does this:
+### Handling vue routes in a Mojolicious Application
+To handle vue routes using vue-router, we need to add a "catch-all" Mojolicious route handler. The last route in MojoVue.pm does this.
+Any named routes before this will be handled by the Mojolicious router, so make sure that there are no overlapping route names
+if you implement server-side routes.
 
 MojoVue.pm
 ```perl5
