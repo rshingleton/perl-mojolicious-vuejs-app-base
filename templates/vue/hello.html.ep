@@ -1,0 +1,16 @@
+% layout 'default';
+% title 'vue hello';
+
+<div id="app">{{ message }}</div>
+
+<script>
+  const { createApp } = Vue
+
+  createApp({
+    data() {
+      return {
+        message: '<%= $msg %>'
+      }
+    }
+  }).mount('#app')
+</script>
